@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://srida-backend.onrender.com/api'
+  apiUrl: 'https://srv-d41nuhripnbc73b4dg30.onrender.com/api'
 };
