@@ -1,28 +1,40 @@
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
-  const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/srida_dev';
-  const maxRetries = 5;
-  let retries = 0;
+  // Try MongoDB Atlas first, fallback to local if not available
+  const atlasUri = process.env.MONGO_URI;
+  const localUri = 'mongodb://127.0.0.1:27017/srida_dev';
+  const uri = atlasUri || localUri;
+  
+  console.log('Attempting to connect to MongoDB...');
+  console.log(`Using ${uri.includes('mongodb+srv') ? 'MongoDB Atlas' : 'local MongoDB'}`);
 
-  while (retries < maxRetries) {
-    try {
-      await mongoose.connect(uri, {
-        serverSelectionTimeoutMS: 5000,
-        socketTimeoutMS: 45000,
-      });
-      console.log('MongoDB connected successfully');
-      return;
-    } catch (err) {
-      retries++;
-      console.error(`MongoDB connection attempt ${retries} failed:`, err.message);
-      if (retries === maxRetries) {
-        console.error('Failed to connect to MongoDB after multiple attempts');
-        process.exit(1);
+  try {
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+    });
+    console.log('MongoDB connected successfully! 🎉');
+    return;
+  } catch (err) {
+    console.error('MongoDB connection error:', err.message);
+    if (atlasUri && uri === atlasUri) {
+      console.log('Falling back to local MongoDB...');
+      try {
+        await mongoose.connect(localUri, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+          serverSelectionTimeoutMS: 5000,
+        });
+        console.log('Connected to local MongoDB successfully! 🎉');
+        return;
+      } catch (localErr) {
+        console.error('Local MongoDB connection error:', localErr.message);
       }
-      // Wait for 5 seconds before retrying
-      await new Promise(resolve => setTimeout(resolve, 5000));
     }
+    throw err;
   }
 };
 
