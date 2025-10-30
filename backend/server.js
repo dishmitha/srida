@@ -8,7 +8,10 @@ const app = express();
 // connect database
 connectDB();
 
-app.use(cors());
+// Configure CORS: if FRONTEND_URL is set, allow only that origin in production.
+const frontendUrl = process.env.FRONTEND_URL;
+const corsOptions = frontendUrl ? { origin: frontendUrl, optionsSuccessStatus: 200 } : {};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // routes
