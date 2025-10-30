@@ -1,0 +1,26 @@
+services:
+  - type: web_service
+    name: srida-backend
+    env: docker
+    dockerfilePath: backend/Dockerfile
+    plan: starter
+    envVars:
+      - key: MONGO_URI
+        value: "${MONGO_URI}"
+      - key: JWT_SECRET
+        value: "${JWT_SECRET}"
+      - key: NODE_ENV
+        value: "production"
+      - key: FRONTEND_URL
+        sync: false # Set this to your frontend URL after deploy
+
+  - type: static_site
+    name: srida-frontend
+    env: static
+    plan: starter
+    buildCommand: cd frontend && npm ci && npm run build --if-present
+    staticPublishPath: frontend/dist
+
+# Notes: Replace ${MONGO_URI} and ${JWT_SECRET} with Render environment variables
+# When you connect this repo to Render, set MONGO_URI to a MongoDB Atlas connection string
+# or use a managed MongoDB service. The frontend static site assumes Angular builds into frontend/dist.

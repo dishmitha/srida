@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo:6.0
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/srida_dev
+      - JWT_SECRET=changeme
+    depends_on:
+      - mongo
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/usr/src/app
+    command: npm run dev
+
+volumes:
+  mongo-data:
+    driver: local

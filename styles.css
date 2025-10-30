@@ -1,0 +1,41 @@
+/* Simple, readable styles for the starter site */
+:root{
+  --bg:#ffffff;
+  --muted:#6b7280;
+  --accent:#2563eb;
+  --container:1100px;
+  --radius:8px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  color:#111827;
+  background:var(--bg);
+  line-height:1.5;
+}
+.container{max-width:var(--container);margin:0 auto;padding:1rem}
+.header-inner{display:flex;align-items:center;justify-content:space-between}
+.logo{margin:0;font-size:1.25rem}
+.site-nav ul{list-style:none;margin:0;padding:0;display:flex;gap:1rem}
+.site-nav a{color:inherit;text-decoration:none}
+.nav-toggle{display:none;background:transparent;border:0;font-size:1.25rem}
+.hero{padding:3rem 0;text-align:center;background:linear-gradient(180deg,#f8fafc,transparent)}
+.hero h2{margin:0 0 .5rem;font-size:2rem}
+.btn{display:inline-block;padding:.6rem 1rem;background:var(--accent);color:#fff;border-radius:6px;text-decoration:none;border:0}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;padding:2rem 0}
+.features article{background:#fff;border:1px solid #eef2ff;padding:1rem;border-radius:var(--radius)}
+.about{padding:1rem 0}
+.contact label{display:block;margin-bottom:.75rem}
+.contact input,.contact textarea{width:100%;padding:.5rem;border:1px solid #d1d5db;border-radius:6px}
+.site-footer{padding:1rem 0;text-align:center;color:var(--muted);border-top:1px solid #f3f4f6;margin-top:2rem}
+.form-message{margin-top:.5rem;color:var(--muted)}
+@media (max-width:800px){
+  .features{grid-template-columns:1fr}
+  .site-nav{position:absolute;left:0;right:0;top:64px;background:var(--bg);padding:1rem;display:none}
+  .site-nav.open{display:block}
+  .nav-toggle{display:block}
+  .header-inner{position:relative}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}

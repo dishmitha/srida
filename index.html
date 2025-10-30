@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Simple Static Site</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1 class="logo">MySite</h1>
+      <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+      <nav class="site-nav">
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h2>Build fast, beautiful sites</h2>
+        <p>A minimal responsive starter you can expand however you like.</p>
+        <p><a class="btn" href="#contact">Get in touch</a></p>
+      </div>
+    </section>
+
+    <section id="features" class="features container">
+      <article>
+        <h3>Responsive</h3>
+        <p>Looks great on phones, tablets and desktops.</p>
+      </article>
+      <article>
+        <h3>Accessible</h3>
+        <p>Semantic HTML, keyboard-friendly nav, and readable contrast.</p>
+      </article>
+      <article>
+        <h3>Lightweight</h3>
+        <p>Small CSS and a tiny JavaScript file for interactivity.</p>
+      </article>
+    </section>
+
+    <section id="about" class="container about">
+      <h3>About this demo</h3>
+      <p>This is a starter static website generated automatically. Customize it and deploy anywhere that serves static files.</p>
+    </section>
+
+    <section id="contact" class="container contact">
+      <h3>Contact</h3>
+      <form id="contactForm">
+        <label>
+          Your name
+          <input type="text" name="name" required />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          Message
+          <textarea name="message" rows="4" required></textarea>
+        </label>
+        <button type="submit" class="btn">Send</button>
+        <p id="formMessage" class="form-message" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> MySite — Built with a tiny starter.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

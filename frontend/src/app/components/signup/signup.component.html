@@ -1,0 +1,23 @@
+<form (ngSubmit)="submit()">
+  <label>
+    Name
+    <input [(ngModel)]="name" name="name" required />
+  </label>
+  <label>
+    Email
+    <input [(ngModel)]="email" name="email" type="email" required />
+  </label>
+  <label>
+    Password
+    <input [(ngModel)]="password" name="password" type="password" required />
+  </label>
+  <label>
+    Role
+    <select [(ngModel)]="role" name="role">
+      <option value="buyer">Buyer</option>
+      <option value="vendor">Vendor</option>
+    </select>
+  </label>
+  <button type="submit">Sign up</button>
+  <p>{{message}}</p>
+</form>

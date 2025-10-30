@@ -1,0 +1,4 @@
+/* small login styles */
+label{display:block;margin-bottom:.5rem}
+input{display:block;padding:.4rem;width:100%;max-width:320px}
+button{margin-top:.5rem}
