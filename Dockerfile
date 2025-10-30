@@ -1,19 +1,27 @@
-# Root Dockerfile to build the backend when services expect a Dockerfile at repo root
-# This simply builds the server located in the backend/ directory.
+# Root Dockerfile for srida backend
 FROM node:18-alpine
 
-# Set working dir to backend
-WORKDIR /usr/src/app/backend
+# Install dependencies required for health check
+RUN apk add --no-cache curl
 
-# Copy package files and install dependencies
-COPY backend/package.json backend/package-lock.json* ./
-RUN npm install --production --silent
+# Create app directory
+WORKDIR /usr/src/app
 
-# Copy backend source
+# Copy package files
+COPY backend/package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production --quiet
+
+# Copy app source
 COPY backend/ ./
 
-# Expose the port (informational)
+# Expose port
 EXPOSE 5000
+
+# Add health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:5000/api/health || exit 1
 
 # Start the server
 CMD ["node", "server.js"]

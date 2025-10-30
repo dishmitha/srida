@@ -2,17 +2,22 @@ services:
   - type: web_service
     name: srida-backend
     env: docker
-    dockerfilePath: backend/Dockerfile
+    dockerfilePath: Dockerfile
     plan: starter
+    healthCheckPath: /api/health
+    healthCheckTimeout: 100
     envVars:
       - key: MONGO_URI
-        value: "${MONGO_URI}"
+        value: "mongodb+srv://srida:srida123@cluster0.mongodb.net/srida?retryWrites=true&w=majority"
       - key: JWT_SECRET
-        value: "${JWT_SECRET}"
+        value: "srida_jwt_F9GK2M4N8P3Q7R5S1T9V2W6X8Y4Z7"
       - key: NODE_ENV
         value: "production"
+      - key: PORT
+        value: "10000"
       - key: FRONTEND_URL
-        sync: false # Set this to your frontend URL after deploy
+        value: "https://srida-frontend.onrender.com"
+    autoDeploy: true
 
   - type: static_site
     name: srida-frontend
