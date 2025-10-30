@@ -8,10 +8,11 @@ RUN apk add --no-cache curl
 WORKDIR /usr/src/app
 
 # Copy package files
-COPY backend/package*.json ./
+COPY backend/package.json ./
+COPY backend/package-lock.json* ./
 
 # Install dependencies
-RUN npm ci --only=production --quiet
+RUN npm install --production --quiet
 
 # Copy app source
 COPY backend/ ./
